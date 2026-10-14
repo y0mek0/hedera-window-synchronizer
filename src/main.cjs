@@ -4,6 +4,7 @@ const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const { loadConfig, runtimeOptions, resolvePath } = require('./core/config.cjs');
 const { SynchronizerBus } = require('./core/event-bus.cjs');
 const { safeBounds } = require('./core/geometry.cjs');
+const { applyProfileUpdate } = require('./core/profile-config.cjs');
 const { createConnectorRegistry } = require('./core/connector-registry.cjs');
 
 let mainWindow;
@@ -127,17 +128,8 @@ function registerIpc() {
   ipcMain.handle('hws:set-mode', (_event, mode) => { if (!['dry-run', 'live'].includes(mode)) throw new Error('Unsupported mode'); options.mode = mode; state.mode = mode; emit('mode-changed', { mode }); return mode; });
   ipcMain.handle('hws:set-profile', (_event, profile) => { if (!config.windows.profiles[profile]) throw new Error(`Unknown profile: ${profile}`); options.profile = profile; state.profile = profile; emit('profile-changed', { profile }); return profile; });
   ipcMain.handle('hws:save-profile', (_event, payload) => {
-    const { profileId, bounds, panels } = payload || {};
-    const profile = config.windows.profiles[profileId];
-    if (!profile) throw new Error(`Unknown profile: ${profileId}`);
-    const safePanels = Array.isArray(panels) ? panels.filter((id) => config.windows.windows.some((item) => item.id === id)) : profile.panels;
-    profile.bounds = {
-      x: Number(bounds?.x) || 0,
-      y: Number(bounds?.y) || 0,
-      width: Math.max(980, Number(bounds?.width) || profile.bounds.width),
-      height: Math.max(640, Number(bounds?.height) || profile.bounds.height)
-    };
-    profile.panels = safePanels.length ? safePanels : profile.panels;
+    const profileId = payload?.profileId;
+    const profile = applyProfileUpdate(config.windows, payload);
     fs.writeFileSync(resolvePath('config/windows.json'), `${JSON.stringify(config.windows, null, 2)}\n`, 'utf8');
     if (profileId === options.profile && mainWindow && !mainWindow.isDestroyed()) {
       const display = screen.getPrimaryDisplay().workArea;

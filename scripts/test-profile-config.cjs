@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { applyProfileUpdate, saveProfileFile } = require('../src/core/profile-config.cjs');
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'windows.json'), 'utf8'));
+const payload = { profileId: 'compact', bounds: { x: 11, y: 22, width: 1200, height: 700 }, panels: ['commentary', 'proof', 'unknown'] };
+const copy = JSON.parse(JSON.stringify(config));
+const profile = applyProfileUpdate(copy, payload);
+assert.deepEqual(profile.bounds, { x: 11, y: 22, width: 1200, height: 700 });
+assert.deepEqual(profile.panels, ['commentary', 'proof']);
+const filePath = path.join(process.cwd(), 'runtime', 'profile-roundtrip-test.json');
+fs.mkdirSync(path.dirname(filePath), { recursive: true });
+saveProfileFile(filePath, copy, payload);
+const reloaded = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+assert.deepEqual(reloaded.profiles.compact.bounds, payload.bounds);
+assert.deepEqual(reloaded.profiles.compact.panels, ['commentary', 'proof']);
+fs.rmSync(filePath, { force: true });
+console.log('profile persistence ok: bounds and panel visibility survive save/reload');

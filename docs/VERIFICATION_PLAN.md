@@ -14,6 +14,8 @@
 - Geometry clamps oversized or off-screen bounds.
 - The event bus emits ordered stage events.
 - Dry-run returns a proof record with `hashMatch: true`.
+- Profile save/reload preserves bounds and selected panel visibility.
+- Connector checks cover HashScan builders, Mirror/EVM URL allowlists, and registry capabilities.
 
 ## Stage 3 — Native shell
 
