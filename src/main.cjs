@@ -7,6 +7,7 @@ const { safeBounds } = require('./core/geometry.cjs');
 const { createConnectorRegistry } = require('./core/connector-registry.cjs');
 
 let mainWindow;
+const childWindows = new Map();
 let config;
 let options;
 let bus;
@@ -18,6 +19,13 @@ function initialState() {
   return { status: 'idle', mode: options.mode, profile: options.profile, scenario: null, stage: null, records: [], events: [], error: null };
 }
 
+function broadcast(event) {
+  const windows = [mainWindow, ...childWindows.values()];
+  for (const window of windows) {
+    if (window && !window.isDestroyed()) window.webContents.send('hws:event', event);
+  }
+}
+
 function emit(type, payload = {}) {
   const event = bus.publish(type, payload);
   state.events = [...state.events.slice(-79), event];
@@ -26,7 +34,7 @@ function emit(type, payload = {}) {
   if (type === 'proof-record') { state.records = [...state.records, payload.record]; state.status = 'complete'; state.stage = 'check'; }
   if (type === 'run-stopped') state.status = 'stopped';
   if (type === 'run-failed') { state.status = 'error'; state.error = payload.error; }
-  if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send('hws:event', event);
+  broadcast(event);
   return event;
 }
 
@@ -34,7 +42,7 @@ function setupBus() {
   bus = new SynchronizerBus();
   bus.on('event', (event) => {
     if (event.type === 'stage' || event.type === 'source-read' || event.type === 'normalized' || event.type === 'hashed' || event.type === 'proof-record') {
-      if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send('hws:event', event);
+      broadcast(event);
     }
   });
 }
@@ -59,6 +67,26 @@ function createMainWindow() {
   });
   mainWindow.loadFile(resolvePath('src/renderer/index.html'));
   mainWindow.on('closed', () => { mainWindow = null; });
+}
+
+function createConfiguredChildWindows() {
+  const display = screen.getPrimaryDisplay().workArea;
+  for (const item of config.windows.windows) {
+    if (item.mode !== 'window' || !item.visible) continue;
+    const bounds = safeBounds(item.bounds || { x: 100, y: 100, width: 760, height: 560 }, display);
+    const child = new BrowserWindow({
+      ...bounds,
+      minWidth: 520,
+      minHeight: 360,
+      backgroundColor: '#050505',
+      title: item.label,
+      parent: mainWindow,
+      webPreferences: { preload: resolvePath('src/preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: false }
+    });
+    child.loadFile(resolvePath('src/renderer/window.html'), { query: { windowId: item.id, role: item.role, label: item.label, profile: options.profile } });
+    child.on('closed', () => childWindows.delete(item.id));
+    childWindows.set(item.id, child);
+  }
 }
 
 async function runOne(scenarioId) {
@@ -128,6 +156,7 @@ app.whenReady().then(() => {
   registry = createConnectorRegistry({ bus, options });
   registerIpc();
   createMainWindow();
+  createConfiguredChildWindows();
   if (process.env.HWS_AUTORUN === '1') setTimeout(() => runAll().catch((error) => console.error(error)), 1200);
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createMainWindow(); });
 });

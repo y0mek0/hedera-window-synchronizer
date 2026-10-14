@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https:;">
+  <title>Hedera Window</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="child-window">
+  <header class="topbar"><div><div class="eyebrow" id="window-role">HEDERA WINDOW</div><h1 id="window-title">Custom window</h1></div><div class="eyebrow">SYNCHRONIZED VIEW</div></header>
+  <main class="child-main"><section class="child-status" id="child-status">Waiting for events.</section><section class="child-events" id="child-events"></section></main>
+  <script src="./window.js?v=1"></script>
+</body>
+</html>

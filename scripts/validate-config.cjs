@@ -11,6 +11,7 @@ const ids = new Set();
 for (const item of windows.windows) {
   if (!item.id || ids.has(item.id)) throw new Error(`Duplicate or missing window id: ${item.id}`);
   ids.add(item.id);
+  if (!['panel', 'window'].includes(item.mode || 'panel')) throw new Error(`Unsupported window mode: ${item.mode}`);
   if (!requiredRoles.includes(item.role)) throw new Error(`Unsupported role: ${item.role}`);
 }
 for (const profile of Object.values(windows.profiles)) {

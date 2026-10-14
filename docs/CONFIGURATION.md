@@ -34,6 +34,8 @@ For a simple panel:
 3. Add a matching `data-panel` element and renderer target.
 4. Run `npm run validate` and `npm test`.
 
+Set `mode: "window"` on a registry item to open it as a synchronized native child window. Child windows use the same preload event bridge and receive the same stage/transaction events as the main control room. Give such an item an optional `bounds` object to control its starting position and size.
+
 For an external process or richer connector, add behavior under `src/connectors/` and keep the renderer dependent on events, not connector internals.
 
 ## Layout rules

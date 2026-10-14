@@ -28,3 +28,10 @@ Implement a function that publishes the shared stage events and returns a proof 
 ## Live evidence rule
 
 A HashScan or Mirror view is updated only after a proof record contains a public URL. A URL string by itself is not treated as proof. Live mode must return a verified sequence, transaction ID, and `hashMatch` result before the UI presents the record as complete.
+
+## Additional connection modules
+
+- `hedera-native.cjs` exposes Testnet account balance, HBAR transfer, fungible HTS creation, and fungible mint operations. These methods require local credentials and are never called by dry-run mode.
+- `mirror-node.cjs` exposes allowlisted read-only account, transaction, and topic-message requests.
+- `hashscan.cjs` builds allowlisted Testnet/Mainnet evidence URLs for transactions, accounts, topics, tokens, and contracts.
+- `evm-jsonrpc.cjs` provides allowlisted JSON-RPC reads for chain ID, block number, and account balance. Write operations remain an explicit future extension and are not silently executed.
