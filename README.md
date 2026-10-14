@@ -60,6 +60,17 @@ The real values stay in `.env.local`. `.env.example` contains placeholders only 
 
 Live mode refuses unsupported networks and refuses to claim a completed proof when required Testnet configuration is missing.
 
+## Portable Windows build
+
+After installing dependencies, build a self-contained x64 portable executable:
+
+```text
+npm run package:portable
+npm run verify:portable
+```
+
+The artifact is written to `release/Hedera Window Synchronizer 0.1.0.exe`. Release output is ignored by Git, and the packaging verification rejects `.env` and `.env.local` files in the release directory.
+
 ## Configuration
 
 - `config/windows.json` controls profiles, panels, connectors, labels, and visibility.

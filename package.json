@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Configurable Windows control room for synchronized Hedera demos and proof evidence.",
+  "author": "Hedera Window Synchronizer contributors",
   "main": "src/main.cjs",
   "scripts": {
     "start": "electron .",
@@ -11,6 +12,8 @@
     "doctor": "node scripts/doctor.cjs",
     "test": "node scripts/test-smoke.cjs && node scripts/test-connectors.cjs && node scripts/test-profile-config.cjs",
     "test:live": "node scripts/run-live-matrix.cjs",
+    "package:portable": "electron-builder --win portable",
+    "verify:portable": "node scripts/verify-portable.cjs",
     "validate": "node scripts/validate-config.cjs"
   },
   "dependencies": {
@@ -19,6 +22,26 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "^44.5.1"
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.hedera.window-synchronizer",
+    "productName": "Hedera Window Synchronizer",
+    "directories": { "output": "release" },
+    "files": [
+      "src/**/*",
+      "config/**/*",
+      "scripts/**/*",
+      "README.md",
+      "PROJECT_NAME.txt",
+      "package.json",
+      "package-lock.json",
+      "!runtime/**",
+      "!.env",
+      "!.env.local",
+      "!.env.*.local"
+    ],
+    "win": { "target": [{ "target": "portable", "arch": ["x64"] }] }
   }
 }
