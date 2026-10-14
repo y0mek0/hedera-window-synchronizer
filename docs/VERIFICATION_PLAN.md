@@ -40,10 +40,10 @@ Check the visible Electron window:
 With real values in `.env.local`:
 
 1. set `HWS_MODE=live`;
-2. run one scenario;
-3. confirm a real HCS sequence;
+2. run `npm run test:live` to execute every configured scenario;
+3. confirm each scenario returns a real HCS sequence and transaction ID;
 4. confirm the Mirror Node response contains the submitted digest;
-5. confirm HashScan and Mirror panels navigate to the derived URLs;
+5. confirm each result has a HashScan URL and `hashMatch: true`;
 6. record the sequence and URLs in a local run note, never in source code.
 
 ## Stage 5 — Documentation and release hygiene

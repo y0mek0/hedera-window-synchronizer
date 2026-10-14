@@ -41,6 +41,7 @@ npm start
 - Live Hedera Testnet mode through HCS.
 - Public source adapters for GitHub releases/issues and HBAR price.
 - Extension points for documents, payments, HTS, and custom processes.
+- Native child-window support for configured `mode: "window"` entries; the default remains the stable embedded control room.
 - Embedded public evidence views driven only by verified records.
 
 ## Live Testnet mode
@@ -75,7 +76,7 @@ npm test
 npm run doctor
 ```
 
-`npm test` exercises configuration, geometry clamping, the event bus, and a complete dry-run proof pipeline. Live Testnet verification requires credentials in `.env.local` and must be run deliberately.
+`npm test` exercises configuration, geometry clamping, the event bus, connector URL safety, profile persistence, and a complete dry-run proof pipeline. To deliberately send and verify one real HCS proof for every configured scenario, run `npm run test:live` with credentials in `.env.local`; it requires Hedera Testnet and reports only verified records (`transactionId`, sequence, Mirror URL, HashScan URL, and `hashMatch`).
 
 ## Security boundary
 

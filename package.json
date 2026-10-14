@@ -10,6 +10,7 @@
     "check": "node scripts/validate-config.cjs && node --check src/main.cjs && node --check src/preload.cjs && node --check src/core/config.cjs && node --check src/core/event-bus.cjs && node --check src/core/geometry.cjs && node --check src/core/profile-config.cjs && node --check src/core/connector-registry.cjs && node --check src/connectors/dry-run.cjs && node --check src/connectors/public-source.cjs && node --check src/connectors/hcs-proof.cjs && node --check src/connectors/hedera-native.cjs && node --check src/connectors/mirror-node.cjs && node --check src/connectors/hashscan.cjs && node --check src/connectors/evm-jsonrpc.cjs && node --check src/renderer/app.js && node --check src/renderer/window.js",
     "doctor": "node scripts/doctor.cjs",
     "test": "node scripts/test-smoke.cjs && node scripts/test-connectors.cjs && node scripts/test-profile-config.cjs",
+    "test:live": "node scripts/run-live-matrix.cjs",
     "validate": "node scripts/validate-config.cjs"
   },
   "dependencies": {
