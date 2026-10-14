@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "scenarios": [
+    {
+      "id": "devops-release",
+      "label": "DevOps release decision",
+      "description": "Read a public release and issue state, fingerprint the decision context, then anchor the proof.",
+      "connector": "devops-release",
+      "stages": ["read", "normalize", "hash", "write to HCS", "check"]
+    },
+    {
+      "id": "web3-market",
+      "label": "Web3 protocol snapshot",
+      "description": "Read a public market value, normalize the observation, and publish a verifiable snapshot.",
+      "connector": "web3-market",
+      "stages": ["read", "normalize", "hash", "write to HCS", "check"]
+    },
+    {
+      "id": "document",
+      "label": "Document proof",
+      "description": "Hash a local document and anchor only its compact public fingerprint.",
+      "connector": "document",
+      "stages": ["read", "normalize", "hash", "write to HCS", "check"]
+    },
+    {
+      "id": "payment",
+      "label": "Payment proof",
+      "description": "Record a Hedera payment intent and attach a verifiable transaction reference.",
+      "connector": "payment",
+      "stages": ["read", "normalize", "hash", "write to HCS", "check"]
+    }
+  ]
+}

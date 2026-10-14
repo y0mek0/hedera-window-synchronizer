@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https:; img-src 'self' data: https:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hedera Window Synchronizer</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">HEDERA WINDOW SYNCHRONIZER</div>
+      <h1>Control room</h1>
+    </div>
+    <div class="topbar-controls">
+      <label>PROFILE <select id="profile-select"></select></label>
+      <label>MODE <select id="mode-select"><option value="dry-run">DRY RUN</option><option value="live">LIVE TESTNET</option></select></label>
+      <button id="run-all" class="primary">RUN ALL</button>
+      <button id="stop-run">STOP</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="statusbar">
+      <div><span class="status-dot" id="status-dot"></span><span id="status-text">IDLE</span></div>
+      <div id="scenario-text">Choose a scenario or run the complete configured sequence.</div>
+      <div id="stage-text">—</div>
+    </section>
+
+    <section class="scenario-strip" id="scenario-strip"></section>
+
+    <section class="panel-grid" id="panel-grid">
+      <article class="panel panel-commentary" data-panel="commentary"><div class="panel-head"><span>01</span><h2>Commentary</h2></div><div class="panel-body" id="commentary-body"></div></article>
+      <article class="panel" data-panel="developer"><div class="panel-head"><span>02</span><h2>Developer Experience</h2></div><div class="panel-body" id="developer-body"></div></article>
+      <article class="panel" data-panel="proof"><div class="panel-head"><span>03</span><h2>Proof Flow</h2></div><div class="panel-body" id="proof-body"></div></article>
+      <article class="panel" data-panel="activity"><div class="panel-head"><span>04</span><h2>Proof Activity</h2></div><div class="panel-body activity" id="activity-body"></div></article>
+      <article class="panel evidence" data-panel="hashscan"><div class="panel-head"><span>05</span><h2>HashScan Evidence</h2></div><webview id="hashscan-view" class="evidence-view" partition="persist:hws" allowpopups="false"></webview><div class="empty-evidence" id="hashscan-empty">Waiting for a verified transaction.</div></article>
+      <article class="panel evidence" data-panel="mirror"><div class="panel-head"><span>06</span><h2>Mirror Node</h2></div><webview id="mirror-view" class="evidence-view" partition="persist:hws" allowpopups="false"></webview><div class="empty-evidence" id="mirror-empty">Waiting for a Mirror Node message.</div></article>
+      <article class="panel" data-panel="custom"><div class="panel-head"><span>07</span><h2>Custom Connector</h2></div><div class="panel-body" id="custom-body"></div></article>
+    </section>
+  </main>
+  <script src="./app.js?v=1"></script>
+</body>
+</html>

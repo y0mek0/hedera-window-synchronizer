@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "app": {
+    "name": "Hedera Window Synchronizer",
+    "defaultProfile": "control-room",
+    "defaultMode": "dry-run",
+    "theme": "monochrome-tech",
+    "refreshMs": 250
+  },
+  "profiles": {
+    "control-room": {
+      "label": "Control room · Full HD",
+      "bounds": { "x": 40, "y": 40, "width": 1840, "height": 1000 },
+      "panels": ["commentary", "developer", "proof", "activity", "hashscan", "mirror", "custom"],
+      "layout": {
+        "commentary": { "column": 1, "row": 1, "columnSpan": 2, "rowSpan": 1 },
+        "developer": { "column": 3, "row": 1, "columnSpan": 1, "rowSpan": 1 },
+        "proof": { "column": 4, "row": 1, "columnSpan": 1, "rowSpan": 1 },
+        "activity": { "column": 1, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "hashscan": { "column": 2, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "mirror": { "column": 3, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "custom": { "column": 4, "row": 2, "columnSpan": 1, "rowSpan": 1 }
+      }
+    },
+    "compact": {
+      "label": "Compact · 1440",
+      "bounds": { "x": 20, "y": 20, "width": 1400, "height": 820 },
+      "panels": ["commentary", "developer", "proof", "activity", "hashscan", "mirror"],
+      "layout": {
+        "commentary": { "column": 1, "row": 1, "columnSpan": 2, "rowSpan": 1 },
+        "developer": { "column": 3, "row": 1, "columnSpan": 1, "rowSpan": 1 },
+        "proof": { "column": 1, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "activity": { "column": 2, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "hashscan": { "column": 3, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "mirror": { "column": 1, "row": 3, "columnSpan": 3, "rowSpan": 1 }
+      }
+    },
+    "two-monitor": {
+      "label": "Two monitor",
+      "bounds": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "panels": ["commentary", "developer", "proof", "activity", "hashscan", "mirror", "custom"],
+      "layout": {
+        "commentary": { "column": 1, "row": 1, "columnSpan": 2, "rowSpan": 1 },
+        "developer": { "column": 3, "row": 1, "columnSpan": 1, "rowSpan": 1 },
+        "proof": { "column": 4, "row": 1, "columnSpan": 1, "rowSpan": 1 },
+        "activity": { "column": 1, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "hashscan": { "column": 2, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "mirror": { "column": 3, "row": 2, "columnSpan": 1, "rowSpan": 1 },
+        "custom": { "column": 4, "row": 2, "columnSpan": 1, "rowSpan": 1 }
+      }
+    }
+  },
+  "windows": [
+    { "id": "commentary", "label": "Commentary", "role": "commentary", "order": 1, "visible": true },
+    { "id": "developer", "label": "Developer Experience", "role": "developer", "order": 2, "visible": true },
+    { "id": "proof", "label": "Proof Flow", "role": "proof", "order": 3, "visible": true },
+    { "id": "activity", "label": "Proof Activity", "role": "activity", "order": 4, "visible": true },
+    { "id": "hashscan", "label": "HashScan Evidence", "role": "hashscan", "order": 5, "visible": true },
+    { "id": "mirror", "label": "Mirror Node", "role": "mirror", "order": 6, "visible": true },
+    { "id": "custom", "label": "Custom Connector", "role": "custom", "order": 7, "visible": true }
+  ],
+  "connectors": [
+    { "id": "devops-release", "label": "DevOps release decision", "kind": "public-source", "source": "github-release", "enabled": true },
+    { "id": "web3-market", "label": "Web3 market snapshot", "kind": "public-source", "source": "hbar-price", "enabled": true },
+    { "id": "document", "label": "Document fingerprint", "kind": "document", "source": "local-file", "enabled": true },
+    { "id": "payment", "label": "Payment proof", "kind": "payment", "source": "hedera-transfer", "enabled": true },
+    { "id": "hcs-proof", "label": "HCS proof submit", "kind": "hcs", "source": "hedera-topic", "enabled": true }
+  ]
+}

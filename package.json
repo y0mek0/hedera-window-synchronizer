@@ -1,0 +1,23 @@
+{
+  "name": "hedera-window-synchronizer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Configurable Windows control room for synchronized Hedera demos and proof evidence.",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "start:dry": "cross-env HWS_MODE=dry-run electron .",
+    "check": "node scripts/validate-config.cjs && node --check src/main.cjs && node --check src/preload.cjs && node --check src/core/config.cjs && node --check src/core/event-bus.cjs && node --check src/core/geometry.cjs && node --check src/core/connector-registry.cjs && node --check src/connectors/dry-run.cjs && node --check src/connectors/public-source.cjs && node --check src/connectors/hcs-proof.cjs && node --check src/renderer/app.js",
+    "doctor": "node scripts/doctor.cjs",
+    "test": "node scripts/test-smoke.cjs",
+    "validate": "node scripts/validate-config.cjs"
+  },
+  "dependencies": {
+    "@hashgraph/sdk": "^2.80.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron": "^44.5.1"
+  }
+}
