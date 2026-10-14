@@ -18,6 +18,7 @@
       <label>MODE <select id="mode-select"><option value="dry-run">DRY RUN</option><option value="live">LIVE TESTNET</option></select></label>
       <button id="run-all" class="primary">RUN ALL</button>
       <button id="stop-run">STOP</button>
+      <button id="open-config">CONFIGURE</button>
     </div>
   </header>
 
@@ -40,6 +41,20 @@
       <article class="panel" data-panel="custom"><div class="panel-head"><span>07</span><h2>Custom Connector</h2></div><div class="panel-body" id="custom-body"></div></article>
     </section>
   </main>
-  <script src="./app.js?v=1"></script>
+  <dialog id="config-dialog">
+    <form method="dialog" class="config-dialog-form">
+      <div class="dialog-head"><div><div class="eyebrow">LAYOUT CONFIGURATION</div><h2>Choose what this profile shows</h2></div><button value="cancel">CLOSE</button></div>
+      <label>PROFILE <select id="config-profile-select"></select></label>
+      <div class="bounds-grid">
+        <label>X <input id="bound-x" type="number"></label>
+        <label>Y <input id="bound-y" type="number"></label>
+        <label>WIDTH <input id="bound-width" type="number"></label>
+        <label>HEIGHT <input id="bound-height" type="number"></label>
+      </div>
+      <div class="config-panels" id="config-panels"></div>
+      <div class="dialog-actions"><button id="save-config" class="primary" value="default">SAVE PROFILE</button></div>
+    </form>
+  </dialog>
+  <script src="./app.js?v=2"></script>
 </body>
 </html>

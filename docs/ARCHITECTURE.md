@@ -61,6 +61,6 @@ Behavioral integrations belong in `src/connectors/` and are selected by the conn
 
 ## Process and window safety
 
-The first release uses one Electron control-room window with configurable panel profiles. This keeps evidence, narration, and technical state synchronized and avoids the old failure mode where separate browser windows drift apart. The profile system is ready for additional child windows later without changing connector APIs.
+The first release uses one Electron control-room window with configurable panel profiles. The profile editor changes bounds and visible panels through a validated main-process IPC command and persists the result to `config/windows.json`. This keeps evidence, narration, and technical state synchronized and avoids the old failure mode where separate browser windows drift apart. The profile system is ready for additional child windows later without changing connector APIs.
 
 All secrets come from `.env.local`. Public links are derived from verified records, not hard-coded demo claims.

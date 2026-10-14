@@ -7,5 +7,6 @@ contextBridge.exposeInMainWorld('hws', {
   stop: () => ipcRenderer.invoke('hws:stop'),
   setMode: (mode) => ipcRenderer.invoke('hws:set-mode', mode),
   setProfile: (profile) => ipcRenderer.invoke('hws:set-profile', profile),
+  saveProfile: (payload) => ipcRenderer.invoke('hws:save-profile', payload),
   onEvent: (handler) => ipcRenderer.on('hws:event', (_event, payload) => handler(payload))
 });

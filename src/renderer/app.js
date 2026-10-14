@@ -48,6 +48,40 @@ function renderProfiles() {
   });
 }
 
+function openConfigDialog() {
+  const select = $('config-profile-select');
+  select.innerHTML = Object.entries(state.config.windows.profiles).map(([id, profile]) => `<option value="${escapeHtml(id)}">${escapeHtml(profile.label)}</option>`).join('');
+  select.value = state.options.profile;
+  select.onchange = renderConfigForm;
+  renderConfigForm();
+  $('config-dialog').showModal();
+}
+
+function renderConfigForm() {
+  const profile = state.config.windows.profiles[$('config-profile-select').value];
+  if (!profile) return;
+  $('bound-x').value = profile.bounds.x;
+  $('bound-y').value = profile.bounds.y;
+  $('bound-width').value = profile.bounds.width;
+  $('bound-height').value = profile.bounds.height;
+  $('config-panels').innerHTML = state.config.windows.windows.map((item) => `<label class="panel-toggle"><input type="checkbox" data-config-panel="${escapeHtml(item.id)}" ${profile.panels.includes(item.id) ? 'checked' : ''}> <span>${escapeHtml(item.label)}</span></label>`).join('');
+}
+
+async function saveConfigForm(event) {
+  event.preventDefault();
+  const profileId = $('config-profile-select').value;
+  const payload = {
+    profileId,
+    bounds: { x: $('bound-x').value, y: $('bound-y').value, width: $('bound-width').value, height: $('bound-height').value },
+    panels: [...document.querySelectorAll('[data-config-panel]:checked')].map((input) => input.dataset.configPanel)
+  };
+  const result = await window.hws.saveProfile(payload);
+  state.config.windows.profiles[profileId] = result.profile;
+  if (profileId === state.options.profile) applyProfileVisibility(profileId);
+  $('config-dialog').close();
+  renderAll();
+}
+
 function applyProfileVisibility(profileId) {
   const profile = state.config.windows.profiles[profileId];
   const enabled = new Set(profile.panels);
@@ -155,6 +189,8 @@ $('run-all').addEventListener('click', async () => {
   try { await window.hws.runAll(); } catch (error) { consume({ type: 'run-failed', error: error.message }); }
 });
 $('stop-run').addEventListener('click', () => window.hws.stop());
+$('open-config').addEventListener('click', openConfigDialog);
+$('save-config').addEventListener('click', saveConfigForm);
 
 (async () => {
   const bootstrap = await window.hws.bootstrap();

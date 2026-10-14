@@ -34,6 +34,7 @@ npm start
 - Windows BAT launchers.
 - One strict black-and-white control room with square corners.
 - Profiles for Full HD, compact, and two-monitor layouts.
+- A `CONFIGURE` dialog for profile bounds and panel visibility; changes are saved back to `config/windows.json`.
 - Configurable panels: Commentary, Developer Experience, Proof Flow, Proof Activity, HashScan Evidence, Mirror Node, and Custom Connector.
 - One event model shared by every view: `read`, `normalize`, `hash`, `write to HCS`, `check`.
 - Dry-run mode for UI and flow work.
