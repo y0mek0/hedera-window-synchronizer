@@ -30,19 +30,19 @@ Do not publish one post per commit. Commits are implementation history; updates 
 
 ## Update anatomy
 
-Use this order in the full version:
+Each update is one compact patch-note post, not a thread:
 
 1. Header: `HWS UPDATE NNN · vX.Y.Z — CODENAME`
-2. Hook: one sentence explaining the user-visible change and why it matters.
-3. `TL;DR`: three to five short bullets.
-4. `NEW`: new features, connectors, panels, or workflows.
-5. `IMPROVED`: UX, reliability, performance, configuration, or workflow changes.
-6. `FIXED`: concrete bugs, written as `Fixed an issue where...`.
-7. `VERIFIED`: tests, live transaction count, sequence numbers, `hashMatch`, package size, or screenshot evidence.
-8. `LIMITATIONS`: only if a material gap remains.
-9. `NEXT`: the next real work, not vague promises.
+2. One short opening sentence explaining the user-visible change.
+3. `NEW` or `ADDED`: new features, connectors, panels, or workflows.
+4. `IMPROVED`: UX, reliability, performance, or configuration changes.
+5. `FIXED`: concrete bugs, written as `Fixed an issue where...`.
+6. `CHANGED`: notable implementation or behavior changes.
+7. `KNOWN ISSUES`: only visible or material remaining problems.
+8. `NEXT`: only if the project is still in active development.
+9. Project link when useful.
 
-For a small update, keep only `NEW`, `FIXED`, `VERIFIED`, and `NEXT`.
+Use 3–8 bullets per section. Do not split the post into numbered tweets unless the user explicitly asks for a thread.
 
 ## Style rules
 

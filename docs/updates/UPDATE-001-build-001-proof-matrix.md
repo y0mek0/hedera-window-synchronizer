@@ -43,43 +43,36 @@ The synchronizer now runs every configured workflow against Hedera Testnet and v
 » Test the portable build on a clean Windows machine.
 » Publish the first tagged feature release after those gates pass.
 
-## X thread
+## X single-post version
 
-[1/6] HWS UPDATE 001 · BUILD 001 — PROOF MATRIX
+HWS UPDATE 001 · BUILD 001 — PROOF MATRIX
 
 The synchronizer now runs every configured workflow against Hedera Testnet and verifies each HCS proof through Mirror Node before showing public evidence.
 
-[2/6] TL;DR
-
-» 4 live scenarios executed
-» 4/4 Mirror checks returned `hashMatch: true`
-» HashScan + Mirror URLs come from real transaction data
-» Windows x64 portable build created
-
-[3/6] NEW
-
+NEW
 » Live matrix runner for DevOps, Web3 market, document, and payment flows
 » Native Hedera, Mirror Node, HashScan, and EVM RPC modules
 » Optional synchronized child windows
 
-[4/6] IMPROVED / FIXED
-
+IMPROVED
 » Profile bounds and panel visibility survive save → reload
-» Mirror verification now handles eventual consistency with bounded polling
+» Mirror verification handles eventual consistency with bounded polling
 » Dry-run and live evidence remain separate
 
-[5/6] VERIFIED
+FIXED
+» Fixed the first-read failure that could mark a fresh HCS message as unverified before Mirror Node propagation completed.
 
-» HCS sequences: 164, 165, 166, 167
+CHANGED
+» Added release checks that reject local env files from the portable package.
+
+VERIFIED
+» HCS sequences 164, 165, 166, 167
 » 4/4 proofs returned `hashMatch: true`
 » check / test / doctor / portable verification passed
 » Packaged control room visually checked on Windows
 
-[6/6] NEXT
+KNOWN ISSUES
+» HTS/EVM actions are modules for now, not full UI actions.
+» Clean-machine Windows install test is next.
 
-» HTS/EVM actions in the UI
-» Clean-machine Windows install test
-» First tagged feature release
-
-The project is open source:
 https://github.com/y0mek0/hedera-window-synchronizer

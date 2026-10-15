@@ -34,28 +34,28 @@
 
 » [next real work item]
 
-## X thread
+## X single post
 
-[1/6] HWS UPDATE NNN · vX.Y.Z — CODENAME
+HWS UPDATE NNN · vX.Y.Z — CODENAME
 
-[Hook]
+[One short hook sentence.]
 
-[2/6] TL;DR
-
+NEW
 » ...
 
-[3/6] NEW
-
+IMPROVED
 » ...
 
-[4/6] IMPROVED / FIXED
-
+FIXED
 » ...
 
-[5/6] VERIFIED
-
+CHANGED
 » ...
 
-[6/6] NEXT
-
+KNOWN ISSUES
 » ...
+
+NEXT
+» ...
+
+[Project link]
